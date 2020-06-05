@@ -13,6 +13,8 @@ public static partial class SessionService
 
   static readonly grpc::Marshaller<global::ConnectionRequestMessage> __Marshaller_ConnectionRequestMessage = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::ConnectionRequestMessage.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::ConnectionResponseMessage> __Marshaller_ConnectionResponseMessage = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::ConnectionResponseMessage.Parser.ParseFrom);
+  static readonly grpc::Marshaller<global::RequestMessage> __Marshaller_RequestMessage = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::RequestMessage.Parser.ParseFrom);
+  static readonly grpc::Marshaller<global::Empty> __Marshaller_Empty = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Empty.Parser.ParseFrom);
 
   static readonly grpc::Method<global::ConnectionRequestMessage, global::ConnectionResponseMessage> __Method_RequestConnection = new grpc::Method<global::ConnectionRequestMessage, global::ConnectionResponseMessage>(
       grpc::MethodType.Unary,
@@ -20,6 +22,13 @@ public static partial class SessionService
       "RequestConnection",
       __Marshaller_ConnectionRequestMessage,
       __Marshaller_ConnectionResponseMessage);
+
+  static readonly grpc::Method<global::RequestMessage, global::Empty> __Method_Disconnection = new grpc::Method<global::RequestMessage, global::Empty>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "Disconnection",
+      __Marshaller_RequestMessage,
+      __Marshaller_Empty);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -32,6 +41,11 @@ public static partial class SessionService
   public abstract partial class SessionServiceBase
   {
     public virtual global::System.Threading.Tasks.Task<global::ConnectionResponseMessage> RequestConnection(global::ConnectionRequestMessage request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    public virtual global::System.Threading.Tasks.Task<global::Empty> Disconnection(global::RequestMessage request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -77,6 +91,22 @@ public static partial class SessionService
     {
       return CallInvoker.AsyncUnaryCall(__Method_RequestConnection, null, options, request);
     }
+    public virtual global::Empty Disconnection(global::RequestMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return Disconnection(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    public virtual global::Empty Disconnection(global::RequestMessage request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_Disconnection, null, options, request);
+    }
+    public virtual grpc::AsyncUnaryCall<global::Empty> DisconnectionAsync(global::RequestMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return DisconnectionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    public virtual grpc::AsyncUnaryCall<global::Empty> DisconnectionAsync(global::RequestMessage request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_Disconnection, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     protected override SessionServiceClient NewInstance(ClientBaseConfiguration configuration)
     {
@@ -89,7 +119,8 @@ public static partial class SessionService
   public static grpc::ServerServiceDefinition BindService(SessionServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_RequestConnection, serviceImpl.RequestConnection).Build();
+        .AddMethod(__Method_RequestConnection, serviceImpl.RequestConnection)
+        .AddMethod(__Method_Disconnection, serviceImpl.Disconnection).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -99,6 +130,7 @@ public static partial class SessionService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, SessionServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_RequestConnection, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ConnectionRequestMessage, global::ConnectionResponseMessage>(serviceImpl.RequestConnection));
+    serviceBinder.AddMethod(__Method_Disconnection, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RequestMessage, global::Empty>(serviceImpl.Disconnection));
   }
 
 }

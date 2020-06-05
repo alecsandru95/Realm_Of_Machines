@@ -12,8 +12,19 @@ namespace Assets.Scripts.Session
 	{
 		[SerializeField]
 		private PlayerData _PlayerData;
+		private bool _Active = true;
 
 		public PlayerData PlayerData { get => _PlayerData; internal set => _PlayerData = value; }
 		public string Token { get; internal set; }
+		public bool IsActive => _Active;
+
+		internal void Disconnected()
+		{
+			_Active = false;
+		}
+		internal void Connected()
+		{
+			_Active = true;
+		}
 	}
 }

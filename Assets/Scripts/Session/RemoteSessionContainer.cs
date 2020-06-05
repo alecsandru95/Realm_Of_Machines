@@ -21,7 +21,14 @@ namespace Assets.Scripts.Session
 
 		internal bool HasActiveConnetion(string guid)
 		{
-			return HasConnection(guid);
+			lock (_Lock)
+			{
+				if(_RemoteMapByGuid.ContainsKey(guid) )
+				{
+					return _RemoteMapByGuid[guid].IsActive;
+				}
+				return false;
+			}
 		}
 
 		internal bool HasConnection(string guid)
@@ -29,6 +36,18 @@ namespace Assets.Scripts.Session
 			lock (_Lock)
 			{
 				return _RemoteMapByGuid.ContainsKey(guid);
+			}
+		}
+
+		internal RemoteSession GetByToken(string token)
+		{
+			lock (_Lock)
+			{
+				if (_RemoteMap.ContainsKey(token))
+				{
+					return _RemoteMap[token];
+				}
+				return null;
 			}
 		}
 

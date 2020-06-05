@@ -42,7 +42,7 @@ public static class GrpcHelper
 				var arguments = $"/K {protoExe} -I {directory} --plugin=protoc-gen-grpc={grpcPluginExe} --csharp_out={directory} --grpc_out={directory} {protoFile}";
 
 				//Process.Start("cmd.exe", arguments);
-
+				
 				var processStartInfo = new ProcessStartInfo()
 				{
 					FileName = "cmd.exe",
@@ -55,8 +55,6 @@ public static class GrpcHelper
 
 				var rezult = rezultProcess.StandardOutput.ReadToEnd();
 				rezultProcess.WaitForExit();
-
-				_Log.WriteInfo($"{protoFileName} : {rezult}");
 			}
 		}
 		catch (Exception exception)

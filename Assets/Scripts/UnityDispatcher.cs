@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Blocks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace Assets.Scripts
 			{
 				Destroy(gameObject);
 			}
+
+			BlockDictionary.Instance.LoadDictionary();
 		}
 
 		public static void InvokeUpdate(Action action)

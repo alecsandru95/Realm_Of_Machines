@@ -24,6 +24,16 @@ namespace Assets.Scripts.Session
 			}
 		}
 
+		public override Task<Empty> Disconnection(RequestMessage request, ServerCallContext context)
+		{
+			var client = _ServerSession.RemoteSessionContainer.GetByToken(request.Token);
+			client.Disconnected();
+
+			_Log.WriteInfo($"{client.PlayerData.PlayerName} disconnecting");
+
+			return Task.FromResult(new Empty());
+		}
+
 		public override Task<ConnectionResponseMessage> RequestConnection(ConnectionRequestMessage request, ServerCallContext context)
 		{
 #if UNITY_EDITOR
@@ -65,6 +75,7 @@ namespace Assets.Scripts.Session
 			if (response != ConnectionResponseType.Refused)
 			{
 				var remoteSession = _ServerSession.RemoteSessionContainer.GetByGuid(guid);
+				remoteSession.Connected();
 
 				token = remoteSession.Token;
 			}

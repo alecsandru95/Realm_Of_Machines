@@ -27,17 +27,19 @@ public static partial class SessionServiceReflection {
           "b25SZXNwb25zZU1lc3NhZ2USLQoMcmVzcG9uc2VUeXBlGAEgASgOMhcuQ29u",
           "bmVjdGlvblJlc3BvbnNlVHlwZRIVCg1yZXNwb25zZVRva2VuGAIgASgJEhcK",
           "D3Jlc3BvbnNlTWVzc2FnZRgDIAEoCSIfCg5SZXF1ZXN0TWVzc2FnZRINCgV0",
-          "b2tlbhgBIAEoCSpJChZDb25uZWN0aW9uUmVzcG9uc2VUeXBlEgsKB1JFRlVT",
-          "RUQQABIOCgpDT05ORUNUSU9OEAESEgoOTkVXX0NPTk5FQ1RJT04QAjJeCg5T",
-          "ZXNzaW9uU2VydmljZRJMChFSZXF1ZXN0Q29ubmVjdGlvbhIZLkNvbm5lY3Rp",
-          "b25SZXF1ZXN0TWVzc2FnZRoaLkNvbm5lY3Rpb25SZXNwb25zZU1lc3NhZ2Ui",
-          "AGIGcHJvdG8z"));
+          "b2tlbhgBIAEoCSIHCgVFbXB0eSpJChZDb25uZWN0aW9uUmVzcG9uc2VUeXBl",
+          "EgsKB1JFRlVTRUQQABIOCgpDT05ORUNUSU9OEAESEgoOTkVXX0NPTk5FQ1RJ",
+          "T04QAjKKAQoOU2Vzc2lvblNlcnZpY2USTAoRUmVxdWVzdENvbm5lY3Rpb24S",
+          "GS5Db25uZWN0aW9uUmVxdWVzdE1lc3NhZ2UaGi5Db25uZWN0aW9uUmVzcG9u",
+          "c2VNZXNzYWdlIgASKgoNRGlzY29ubmVjdGlvbhIPLlJlcXVlc3RNZXNzYWdl",
+          "GgYuRW1wdHkiAGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ConnectionResponseType), }, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConnectionRequestMessage), global::ConnectionRequestMessage.Parser, new[]{ "Guid", "Name" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConnectionResponseMessage), global::ConnectionResponseMessage.Parser, new[]{ "ResponseType", "ResponseToken", "ResponseMessage" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::RequestMessage), global::RequestMessage.Parser, new[]{ "Token" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::RequestMessage), global::RequestMessage.Parser, new[]{ "Token" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null)
         }));
   }
   #endregion
@@ -518,6 +520,107 @@ public sealed partial class RequestMessage : pb::IMessage<RequestMessage> {
           Token = input.ReadString();
           break;
         }
+      }
+    }
+  }
+
+}
+
+public sealed partial class Empty : pb::IMessage<Empty> {
+  private static readonly pb::MessageParser<Empty> _parser = new pb::MessageParser<Empty>(() => new Empty());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<Empty> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::SessionServiceReflection.Descriptor.MessageTypes[3]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public Empty() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public Empty(Empty other) : this() {
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public Empty Clone() {
+    return new Empty(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as Empty);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(Empty other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(Empty other) {
+    if (other == null) {
+      return;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
       }
     }
   }

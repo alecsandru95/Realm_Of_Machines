@@ -2,6 +2,7 @@ syntax="proto3";
 
 service SessionService {
 	rpc RequestConnection(ConnectionRequestMessage) returns (ConnectionResponseMessage){}
+	rpc Disconnection(RequestMessage) returns (Empty){}
 }
 
 enum ConnectionResponseType{
@@ -21,4 +22,8 @@ message ConnectionResponseMessage{
 }
 message RequestMessage{
 	string token = 1;
+}
+
+message Empty{
+
 }

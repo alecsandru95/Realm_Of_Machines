@@ -61,7 +61,14 @@ namespace Assets.Scripts.Session
 				{
 					try
 					{
+						_SessionService?.Disconnection(new RequestMessage()
+						{
+							Token = Token
+						});
 						_Channel?.ShutdownAsync().Wait();
+
+						_SessionService = null;
+						_Channel = null;
 					}
 					catch (Exception exception)
 					{
