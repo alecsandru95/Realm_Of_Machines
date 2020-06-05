@@ -1,0 +1,16 @@
+syntax="proto3";
+
+import "BlockService.proto";
+import "SessionService.proto";
+
+service EntityService{
+	rpc RequestAllEntitiesSyncIds(RequestMessage) returns (AllEntityMessage){}
+}
+
+message AllEntityMessage{
+	repeated sint64 syncIdList = 1;
+}
+message EntityMessage{
+	sint64 syncId = 1;
+	repeated BlockMessage blockList = 2; 
+}

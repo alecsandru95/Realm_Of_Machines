@@ -13,8 +13,23 @@ public class LogHelper
 		_Source = sourceType.Name;
 	}
 
-	public void WriteLine(string line)
+	public void WriteInfo(string line)
 	{
-		Log.WriteLine($"{_Source} -> {line}");
+		Log.WriteInfo($"{_Source} -> {line}");
+	}
+	public void WriteWarning(string line)
+	{
+		Log.WriteWarning($"{_Source} -> {line}");
+	}
+	public void WriteError(string line)
+	{
+		Log.WriteError($"{_Source} -> {line}");
+	}
+	public void WriteError(Exception exception)
+	{
+		if(exception != null)
+		{
+			Log.WriteError($"{_Source} -> {exception.Message}");
+		}
 	}
 }

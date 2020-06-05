@@ -1,59 +1,65 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Synchronization;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public abstract class Entity : MonoBehaviour
+namespace Assets.Scripts.Entities
 {
-	private static readonly LogHelper _Log = new LogHelper(typeof(Entity));
-
-	private Rigidbody __Rigidbody;
-	protected Rigidbody _Rigidbody
+	[RequireComponent(typeof(Rigidbody))]
+	public abstract class Entity : MonoBehaviour, ISynchronizable
 	{
-		get
+		private static readonly LogHelper _Log = new LogHelper(typeof(Entity));
+
+		private Rigidbody __Rigidbody;
+		protected Rigidbody _Rigidbody
 		{
-			if(__Rigidbody == null)
+			get
 			{
-				__Rigidbody = GetComponent<Rigidbody>();
+				if (__Rigidbody == null)
+				{
+					__Rigidbody = GetComponent<Rigidbody>();
+				}
+				return __Rigidbody;
 			}
-			return __Rigidbody;
 		}
-	}
 
-	private HashSet<Block> _BlockSet = null;
+		public ulong SyncID { get; set; }
 
-	protected virtual void Awake()
-	{
-		_Log.WriteLine(name);
-	}
+		private HashSet<Block> _BlockSet = null;
 
-	protected virtual void Start()
-	{
-		_BlockSet = new HashSet<Block>(GetComponentsInChildren<Block>());
-		RecalculateRigidbody();
-	}
-
-	public void RecalculateRigidbody()
-	{
-		var localCenterOfMass = Vector3.zero;
-		var totalMass = 0f;
-		foreach (var block in _BlockSet)
+		protected virtual void Awake()
 		{
-			localCenterOfMass += block.transform.localPosition * block.Mass;
-			totalMass += block.Mass;
+			_Log.WriteInfo(name);
 		}
 
-		if(totalMass > 0.001f)
+		protected virtual void Start()
 		{
-			localCenterOfMass /= totalMass;
-			_Rigidbody.centerOfMass = localCenterOfMass;
-			_Rigidbody.mass = totalMass;
+			_BlockSet = new HashSet<Block>(GetComponentsInChildren<Block>());
+			RecalculateRigidbody();
 		}
-	}
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawSphere(_Rigidbody.worldCenterOfMass, 0.125f);
+		public void RecalculateRigidbody()
+		{
+			var localCenterOfMass = Vector3.zero;
+			var totalMass = 0f;
+			foreach (var block in _BlockSet)
+			{
+				localCenterOfMass += block.transform.localPosition * block.Mass;
+				totalMass += block.Mass;
+			}
+
+			if (totalMass > 0.005f)
+			{
+				localCenterOfMass /= totalMass;
+				_Rigidbody.centerOfMass = localCenterOfMass;
+				_Rigidbody.mass = totalMass;
+			}
+		}
+
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere(_Rigidbody.worldCenterOfMass, 0.125f);
+		}
 	}
 }

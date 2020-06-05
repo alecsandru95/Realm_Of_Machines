@@ -1,0 +1,6 @@
+syntax="proto3";
+
+message BlockMessage{
+	sint64 syncId = 1;
+	sint64 blockId = 2;
+}

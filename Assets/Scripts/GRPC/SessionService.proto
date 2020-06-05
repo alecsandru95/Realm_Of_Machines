@@ -1,0 +1,24 @@
+syntax="proto3";
+
+service SessionService {
+	rpc RequestConnection(ConnectionRequestMessage) returns (ConnectionResponseMessage){}
+}
+
+enum ConnectionResponseType{
+		REFUSED = 0;
+		CONNECTION = 1;
+		NEW_CONNECTION = 2; 
+}
+
+message ConnectionRequestMessage {
+	string guid = 1;
+	string name = 2;
+}
+message ConnectionResponseMessage{
+	ConnectionResponseType responseType = 1;
+	string responseToken = 2;
+	string responseMessage = 3;
+}
+message RequestMessage{
+	string token = 1;
+}

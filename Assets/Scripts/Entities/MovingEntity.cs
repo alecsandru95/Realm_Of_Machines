@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingEntity : Entity
+namespace Assets.Scripts.Entities
 {
-	private static readonly LogHelper _Log = new LogHelper(typeof(MovingEntity));
+	public class MovingEntity : Entity
+	{
+		private static readonly LogHelper _Log = new LogHelper(typeof(MovingEntity));
+	}
 }
